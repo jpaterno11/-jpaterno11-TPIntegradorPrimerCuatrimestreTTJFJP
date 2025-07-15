@@ -10,6 +10,11 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
+// Importar controladores desde la nueva arquitectura
+// const eventController = require('./controllers/event-controller');
+// const userController = require('./controllers/user-controller');
+// const eventLocationController = require('./controllers/event-location-controller');
+
 app.get('/api/event', async (req, res) => {
     const { limit = 15, offset = 0 } = req.query;
 
