@@ -1,8 +1,25 @@
-// Middleware de autenticación JWT
+import jwt from 'jsonwebtoken';
+import 'dotenv/config';
 
-function authenticationMiddleware(req, res, next) {
-    // Lógica de autenticación aquí
-    next();
-}
+export const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
 
-module.exports = authenticationMiddleware; 
+    if (!token) {
+        return res.status(401).json({ 
+            success: false, 
+            message: "Token de acceso requerido" 
+        });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            return res.status(403).json({ 
+                success: false, 
+                message: "Token inválido" 
+            });
+        }
+        req.user = user;
+        next();
+    });
+}; 
