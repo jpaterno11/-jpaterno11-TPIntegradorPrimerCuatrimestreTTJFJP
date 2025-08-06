@@ -1,0 +1,610 @@
+{
+	"info": {
+		"_postman_id": "180fcf9e-c20c-48cd-b5b2-41e5636c57b4",
+		"name": "TP integrador DAI",
+		"description": "Colección completa para probar la API de eventos con todos los endpoints requeridos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticación",
+			"item": [
+				{
+					"name": "Registrar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Joaquin\",\n    \"last_name\": \"Paterno\",\n    \"username\": \"joaquinpaterno11@gmail.com\",\n    \"password\": \"Contraseña1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Usuario",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"pablo.ulman@ort.edu.ar\",\n    \"password\": \"1234\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/user/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Eventos",
+			"item": [
+				{
+					"name": "Obtener Todos los Eventos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event?limit=10&offset=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Eventos por Nombre",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event?name=taylor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "taylor"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Eventos por Fecha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event?startdate=2024-09-21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event"
+							],
+							"query": [
+								{
+									"key": "startdate",
+									"value": "2024-09-21"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Eventos por Tag",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event?tag=Rock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event"
+							],
+							"query": [
+								{
+									"key": "tag",
+									"value": "Rock"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar Eventos Combinado",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event?name=taylor&startdate=2024-09-21&tag=Rock",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "taylor"
+								},
+								{
+									"key": "startdate",
+									"value": "2024-09-21"
+								},
+								{
+									"key": "tag",
+									"value": "Rock"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Evento por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Evento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE0NDQsImV4cCI6MTc1NDU2Nzg0NH0.PEbBInqjn4MYCZj6lbHF3L56cl36rLmeuNBcFdkCA_0"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Concierto de Rock\",\n    \"description\": \"Un increíble concierto de rock en vivo\",\n    \"start_date\": \"2025-06-15T20:00:00.000Z\",\n    \"duration_in_minutes\": 120,\n    \"price\": 5000,\n    \"enabled_for_enrollment\": true,\n    \"max_assistance\": 1000,\n    \"id_event_location\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/event",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Evento",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Concierto de Rock Actualizado\",\n    \"description\": \"Un increíble concierto de rock en vivo actualizado\",\n    \"start_date\": \"2025-06-15T20:00:00.000Z\",\n    \"duration_in_minutes\": 150,\n    \"price\": 6000,\n    \"enabled_for_enrollment\": true,\n    \"max_assistance\": 1200,\n    \"id_event_location\": 1\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/event/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Evento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/event/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inscripciones",
+			"item": [
+				{
+					"name": "Inscribirse en Evento",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/event/3/enrollment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event",
+								"3",
+								"enrollment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desinscribirse de Evento",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/event/3/enrollment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event",
+								"3",
+								"enrollment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Participantes del Evento",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/event/1/enrollments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event",
+								"1",
+								"enrollments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ubicaciones",
+			"item": [
+				{
+					"name": "Obtener Todas las Ubicaciones",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/event-location?limit=10&offset=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event-location"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "offset",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Ubicación por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/event-location/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event-location",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Ubicación",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Estadio Monumental\",\n    \"full_address\": \"Av. Pres. Figueroa Alcorta 7597, Buenos Aires\",\n    \"max_capacity\": 84567,\n    \"latitude\": -34.54454505693356,\n    \"longitude\": -58.4494761175694,\n    \"id_location\": 103\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/event-location",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event-location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Ubicación",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODQxNjksImV4cCI6MTc1NDU3MDU2OX0.iEO4x1n1Ifpc5mPJF6_ek9Gj3SZ72E0Vmvur_-FLoEk"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Estadio Monumental Actualizado\",\n    \"full_address\": \"Av. Pres. Figueroa Alcorta 7597, Buenos Aires\",\n    \"max_capacity\": 85000,\n    \"latitude\": -34.54454505693356,\n    \"longitude\": -58.4494761175694,\n    \"id_location\": 102\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/event-location/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event-location",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Ubicación",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODQxNjksImV4cCI6MTc1NDU3MDU2OX0.iEO4x1n1Ifpc5mPJF6_ek9Gj3SZ72E0Vmvur_-FLoEk"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/event-location/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"event-location",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

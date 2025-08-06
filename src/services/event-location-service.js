@@ -43,7 +43,6 @@ export class EventLocationService {
     }
 
     async updateLocation(id, locationData, userId) {
-        // Validate location data
         const errors = validateEventLocationData(locationData);
         if (errors.length > 0) {
             throw new Error(errors.join(', '));

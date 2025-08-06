@@ -154,15 +154,17 @@ export class EventLocationRepository {
         try {
             await client.connect();
             
-            // Check if location belongs to user
             const checkQuery = 'SELECT id_creator_user FROM event_locations WHERE id = $1';
             const checkResult = await client.query(checkQuery, [id]);
-            
+            console.log(checkResult.rows[0].id_creator_user, userId);
             if (checkResult.rows.length === 0) {
-                return null; // Location not found
+                return null;
             }
             
-            if (checkResult.rows[0].id_creator_user !== userId) {
+            const locationCreatorId = parseInt(checkResult.rows[0].id_creator_user);
+            const currentUserId = parseInt(userId);
+            
+            if (locationCreatorId !== currentUserId) {
                 throw new Error('No autorizado para editar esta ubicación');
             }
 
@@ -191,9 +193,14 @@ export class EventLocationRepository {
                 return null;
             }
             
-            if (checkResult.rows[0].id_creator_user !== userId) {
+            // Convertir ambos IDs a números para comparación correcta
+            const locationCreatorId = parseInt(checkResult.rows[0].id_creator_user);
+            const currentUserId = parseInt(userId);
+            
+            if (locationCreatorId !== currentUserId) {
                 throw new Error('No autorizado para eliminar esta ubicación');
             }
+            
             const eventCheck = await client.query(
                 'SELECT COUNT(*) FROM events WHERE id_event_location = $1',
                 [id]
