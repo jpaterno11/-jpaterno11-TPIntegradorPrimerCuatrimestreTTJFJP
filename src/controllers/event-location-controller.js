@@ -8,10 +8,8 @@ export class EventLocationController {
     async getAllLocations(req, res) {
         try {
             const { limit = 15, offset = 0 } = req.query;
-            const userId = req.user.id;
             
-            const locations = await this.eventLocationService.getAllLocationsByUser(
-                userId, 
+            const locations = await this.eventLocationService.getAllLocations(
                 parseInt(limit), 
                 parseInt(offset)
             );
@@ -27,12 +25,11 @@ export class EventLocationController {
     async getLocationById(req, res) {
         try {
             const { id } = req.params;
-            const userId = req.user.id;
             
-            const location = await this.eventLocationService.getLocationById(parseInt(id), userId);
+            const location = await this.eventLocationService.getLocationById(parseInt(id));
             res.status(200).json(location);
         } catch (error) {
-            if (error.message.includes("no encontrada") || error.message.includes("no autorizada")) {
+            if (error.message.includes("no encontrada")) {
                 res.status(404).json({
                     success: false,
                     message: error.message

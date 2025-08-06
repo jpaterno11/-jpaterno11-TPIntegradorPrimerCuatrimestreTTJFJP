@@ -3,15 +3,15 @@ import pkg from 'pg';
 const { Client } = pkg;
 
 export class EventLocationRepository {
-    async findAllByUser(userId, limit = 15, offset = 0) {
+    async findAll(limit = 15, offset = 0) {
         const client = new Client(config);
         try {
             await client.connect();
             
             const countQuery = `
-                SELECT COUNT(*) FROM event_locations WHERE id_creator_user = $1
+                SELECT COUNT(*) FROM event_locations
             `;
-            const countResult = await client.query(countQuery, [userId]);
+            const countResult = await client.query(countQuery);
             const total = parseInt(countResult.rows[0].count);
 
             const query = `
@@ -33,12 +33,11 @@ export class EventLocationRepository {
                 FROM event_locations el
                 JOIN locations l ON el.id_location = l.id
                 JOIN provinces p ON l.id_province = p.id
-                WHERE el.id_creator_user = $1
                 ORDER BY el.id
-                LIMIT $2 OFFSET $3
+                LIMIT $1 OFFSET $2
             `;
             
-            const result = await client.query(query, [userId, limit, offset]);
+            const result = await client.query(query, [limit, offset]);
 
             return {
                 collection: result.rows,
@@ -52,8 +51,41 @@ export class EventLocationRepository {
             await client.end();
         }
     }
+    async findById(id) {
+        const client = new Client(config);
+        try {
+            await client.connect();
+            
+            const query = `
+                SELECT 
+                    el.*,
+                    json_build_object(
+                        'id', l.id,
+                        'name', l.name,
+                        'latitude', l.latitude,
+                        'longitude', l.longitude,
+                        'province', json_build_object(
+                            'id', p.id,
+                            'name', p.name,
+                            'full_name', p.full_name,
+                            'latitude', p.latitude,
+                            'longitude', p.longitude
+                        )
+                    ) as location
+                FROM event_locations el
+                JOIN locations l ON el.id_location = l.id
+                JOIN provinces p ON l.id_province = p.id
+                WHERE el.id = $1
+            `;
+            
+            const result = await client.query(query, [id]);
+            return result.rows[0] || null;
+        } finally {
+            await client.end();
+        }
+    }
 
-    async findById(id, userId) {
+    async findByIdForUser(id, userId) {
         const client = new Client(config);
         try {
             await client.connect();
@@ -152,20 +184,16 @@ export class EventLocationRepository {
         const client = new Client(config);
         try {
             await client.connect();
-            
-            // Check if location belongs to user
             const checkQuery = 'SELECT id_creator_user FROM event_locations WHERE id = $1';
             const checkResult = await client.query(checkQuery, [id]);
             
             if (checkResult.rows.length === 0) {
-                return null; // Location not found
+                return null;
             }
             
             if (checkResult.rows[0].id_creator_user !== userId) {
                 throw new Error('No autorizado para eliminar esta ubicación');
             }
-
-            // Check if there are events using this location
             const eventCheck = await client.query(
                 'SELECT COUNT(*) FROM events WHERE id_event_location = $1',
                 [id]

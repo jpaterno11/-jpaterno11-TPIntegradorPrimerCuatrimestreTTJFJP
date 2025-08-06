@@ -230,7 +230,11 @@ export class EventRepository {
                 return null; // Event not found
             }
             
-            if (checkResult.rows[0].id_creator_user !== userId) {
+            // Convertir ambos IDs a números para comparación correcta
+            const eventCreatorId = parseInt(checkResult.rows[0].id_creator_user);
+            const currentUserId = parseInt(userId);
+            
+            if (eventCreatorId !== currentUserId) {
                 throw new Error('No autorizado para editar este evento');
             }
 
@@ -263,12 +267,16 @@ export class EventRepository {
                 return null; // Event not found
             }
             
-            if (checkResult.rows[0].id_creator_user !== userId) {
+            // Convertir ambos IDs a números para comparación correcta
+            const eventCreatorId = parseInt(checkResult.rows[0].id_creator_user);
+            const currentUserId = parseInt(userId);
+            
+            if (eventCreatorId !== currentUserId) {
                 throw new Error('No autorizado para eliminar este evento');
             }
 
             // Check if there are enrollments
-            const enrollmentQuery = 'SELECT COUNT(*) FROM enrollments WHERE id_event = $1';
+            const enrollmentQuery = 'SELECT COUNT(*) FROM event_enrollments WHERE id_event = $1';
             const enrollmentResult = await client.query(enrollmentQuery, [id]);
             
             if (parseInt(enrollmentResult.rows[0].count) > 0) {
@@ -301,7 +309,7 @@ export class EventRepository {
         try {
             await client.connect();
             const result = await client.query(
-                'SELECT COUNT(*) FROM enrollments WHERE id_event = $1 AND id_user = $2',
+                'SELECT COUNT(*) FROM event_enrollments WHERE id_event = $1 AND id_user = $2',
                 [eventId, userId]
             );
             return parseInt(result.rows[0].count) > 0;
@@ -315,7 +323,7 @@ export class EventRepository {
         try {
             await client.connect();
             const result = await client.query(
-                'INSERT INTO enrollments (id_event, id_user, registration_date_time) VALUES ($1, $2, NOW()) RETURNING *',
+                'INSERT INTO event_enrollments (id_event, id_user, registration_date_time) VALUES ($1, $2, NOW()) RETURNING *',
                 [eventId, userId]
             );
             return result.rows[0];
@@ -329,7 +337,7 @@ export class EventRepository {
         try {
             await client.connect();
             const result = await client.query(
-                'DELETE FROM enrollments WHERE id_event = $1 AND id_user = $2 RETURNING *',
+                'DELETE FROM event_enrollments WHERE id_event = $1 AND id_user = $2 RETURNING *',
                 [eventId, userId]
             );
             return result.rows[0];
@@ -353,7 +361,7 @@ export class EventRepository {
                     e.attended,
                     e.rating,
                     e.description
-                FROM enrollments e
+                FROM event_enrollments e
                 JOIN users u ON e.id_user = u.id
                 WHERE e.id_event = $1
             `;

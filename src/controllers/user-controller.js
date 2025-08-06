@@ -21,10 +21,26 @@ export class UserController {
                 }
             });
         } catch (error) {
-            res.status(400).json({
-                success: false,
-                message: error.message
-            });
+            console.error('Error en register:', error.message);
+                        if (error.message.includes("El username ya está en uso")) {
+                res.status(400).json({
+                    success: false,
+                    message: "El email ya está registrado"
+                });
+            } else if (error.message.includes("El nombre debe tener") || 
+                       error.message.includes("El apellido debe tener") ||
+                       error.message.includes("El email es inválido") ||
+                       error.message.includes("La contraseña debe tener")) {
+                res.status(400).json({
+                    success: false,
+                    message: error.message
+                });
+            } else {
+                res.status(500).json({
+                    success: false,
+                    message: "Error interno del servidor al registrar usuario"
+                });
+            }
         }
     }
 
@@ -32,7 +48,6 @@ export class UserController {
         try {
             const credentials = req.body;
             const result = await this.userService.login(credentials);
-            
             res.status(200).json(result);
         } catch (error) {
             if (error.message === "El email es inválido") {
@@ -53,6 +68,7 @@ export class UserController {
                     message: "Error interno del servidor",
                     token: ""
                 });
+                console.log(error);
             }
         }
     }

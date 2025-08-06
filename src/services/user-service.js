@@ -9,7 +9,6 @@ export class UserService {
     }
 
     async register(userData) {
-        // Validate input data
         const errors = [];
         
         if (!validateName(userData.first_name)) {
@@ -31,8 +30,6 @@ export class UserService {
         if (errors.length > 0) {
             throw new Error(errors.join(', '));
         }
-
-        // Check if username already exists
         const existingUser = await this.userRepository.findByUsername(userData.username);
         if (existingUser) {
             throw new Error("El usuario ya existe");
