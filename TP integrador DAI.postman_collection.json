@@ -24,12 +24,10 @@
 							"raw": "{\n    \"first_name\": \"Joaquin\",\n    \"last_name\": \"Paterno\",\n    \"username\": \"joaquinpaterno11@gmail.com\",\n    \"password\": \"Contraseña1\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/user/register",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/user/register",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"user",
@@ -54,12 +52,10 @@
 							"raw": "{\n    \"username\": \"pablo.ulman@ort.edu.ar\",\n    \"password\": \"1234\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/user/login",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/user/login",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"user",
@@ -80,12 +76,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event?limit=10&offset=0",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event?limit=10&offset=0",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event"
@@ -110,12 +104,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event?name=taylor",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event?name=taylor",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event"
@@ -136,12 +128,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event?startdate=2024-09-21",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event?startdate=2024-09-21",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event"
@@ -162,12 +152,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event?tag=Rock",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event?tag=Rock",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event"
@@ -188,12 +176,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event?name=taylor&startdate=2024-09-21&tag=Rock",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event?name=taylor&startdate=2024-09-21&tag=Rock",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event"
@@ -222,12 +208,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event/1",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event/1",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event",
@@ -256,12 +240,10 @@
 							"raw": "{\n    \"name\": \"Concierto de Rock\",\n    \"description\": \"Un increíble concierto de rock en vivo\",\n    \"start_date\": \"2025-06-15T20:00:00.000Z\",\n    \"duration_in_minutes\": 120,\n    \"price\": 5000,\n    \"enabled_for_enrollment\": true,\n    \"max_assistance\": 1000,\n    \"id_event_location\": 1\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/event",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event"
@@ -289,12 +271,10 @@
 							"raw": "{\n    \"name\": \"Concierto de Rock Actualizado\",\n    \"description\": \"Un increíble concierto de rock en vivo actualizado\",\n    \"start_date\": \"2025-06-15T20:00:00.000Z\",\n    \"duration_in_minutes\": 150,\n    \"price\": 6000,\n    \"enabled_for_enrollment\": true,\n    \"max_assistance\": 1200,\n    \"id_event_location\": 1\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/event/7",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event/7",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event",
@@ -315,12 +295,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/event/7",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event/7",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event",
@@ -346,12 +324,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/event/3/enrollment",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event/3/enrollment",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event",
@@ -373,12 +349,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/event/3/enrollment",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event/3/enrollment",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event",
@@ -395,12 +369,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/event/1/enrollments",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event/1/enrollments",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event",
@@ -428,12 +400,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/event-location?limit=10&offset=0",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event-location?limit=10&offset=0",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event-location"
@@ -464,12 +434,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/event-location/1",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event-location/1",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event-location",
@@ -498,12 +466,10 @@
 							"raw": "{\n    \"name\": \"Estadio Monumental\",\n    \"full_address\": \"Av. Pres. Figueroa Alcorta 7597, Buenos Aires\",\n    \"max_capacity\": 84567,\n    \"latitude\": -34.54454505693356,\n    \"longitude\": -58.4494761175694,\n    \"id_location\": 103\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/event-location",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event-location",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event-location"
@@ -531,12 +497,10 @@
 							"raw": "{\n    \"name\": \"Estadio Monumental Actualizado\",\n    \"full_address\": \"Av. Pres. Figueroa Alcorta 7597, Buenos Aires\",\n    \"max_capacity\": 85000,\n    \"latitude\": -34.54454505693356,\n    \"longitude\": -58.4494761175694,\n    \"id_location\": 102\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/event-location/7",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event-location/7",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event-location",
@@ -557,12 +521,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/api/event-location/7",
-							"protocol": "http",
+							"raw": "{{url}}{{domain}}{{port}}/api/event-location/7",
 							"host": [
-								"localhost"
+								"{{url}}{{domain}}{{port}}"
 							],
-							"port": "3000",
 							"path": [
 								"api",
 								"event-location",
@@ -597,13 +559,18 @@
 	],
 	"variable": [
 		{
-			"key": "base_url",
-			"value": "http://localhost:3000",
+			"key": "port",
+			"value": ":3000",
 			"type": "string"
 		},
 		{
-			"key": "auth_token",
-			"value": "",
+			"key": "url",
+			"value": "http://",
+			"type": "string"
+		},
+		{
+			"key": "domain",
+			"value": "localhost",
 			"type": "string"
 		}
 	]
