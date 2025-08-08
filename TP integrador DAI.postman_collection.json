@@ -39,6 +39,18 @@
 				},
 				{
 					"name": "Login Usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"pm.environment.set('token', res.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -49,7 +61,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"pablo.ulman@ort.edu.ar\",\n    \"password\": \"1234\"\n}"
+							"raw": "{\n    \"username\": \"joaquinpaterno11@gmail.com\",\n    \"password\": \"Contraseña1\"\n}"
 						},
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/user/login",
@@ -224,6 +236,16 @@
 				{
 					"name": "Crear Evento",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -232,7 +254,8 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE0NDQsImV4cCI6MTc1NDU2Nzg0NH0.PEbBInqjn4MYCZj6lbHF3L56cl36rLmeuNBcFdkCA_0"
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE0NDQsImV4cCI6MTc1NDU2Nzg0NH0.PEbBInqjn4MYCZj6lbHF3L56cl36rLmeuNBcFdkCA_0",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -255,15 +278,21 @@
 				{
 					"name": "Actualizar Evento",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
 							}
 						],
 						"body": {
@@ -287,13 +316,18 @@
 				{
 					"name": "Eliminar Evento",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/event/7",
 							"host": [
@@ -316,13 +350,18 @@
 				{
 					"name": "Inscribirse en Evento",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/event/3/enrollment",
 							"host": [
@@ -341,13 +380,18 @@
 				{
 					"name": "Desinscribirse de Evento",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/event/3/enrollment",
 							"host": [
@@ -391,14 +435,18 @@
 				{
 					"name": "Obtener Todas las Ubicaciones",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/event-location?limit=10&offset=0",
 							"host": [
@@ -425,14 +473,18 @@
 				{
 					"name": "Obtener Ubicación por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/event-location/1",
 							"host": [
@@ -450,15 +502,21 @@
 				{
 					"name": "Crear Ubicación",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODE4OTYsImV4cCI6MTc1NDU2ODI5Nn0.y8qd_n9RCyQMej4QNfh3OOwqLfNBINxeFhNBCyJieHQ"
 							}
 						],
 						"body": {
@@ -481,15 +539,21 @@
 				{
 					"name": "Actualizar Ubicación",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODQxNjksImV4cCI6MTc1NDU3MDU2OX0.iEO4x1n1Ifpc5mPJF6_ek9Gj3SZ72E0Vmvur_-FLoEk"
 							}
 						],
 						"body": {
@@ -513,13 +577,18 @@
 				{
 					"name": "Eliminar Ubicación",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsImZpcnN0X25hbWUiOiJKb2FxdWluIiwibGFzdF9uYW1lIjoiUGF0ZXJubyIsInVzZXJuYW1lIjoiam9hcXVpbnBhdGVybm8xMUBnbWFpbC5jb20iLCJpYXQiOjE3NTQ0ODQxNjksImV4cCI6MTc1NDU3MDU2OX0.iEO4x1n1Ifpc5mPJF6_ek9Gj3SZ72E0Vmvur_-FLoEk"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{url}}{{domain}}{{port}}/api/event-location/7",
 							"host": [
@@ -533,6 +602,29 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		}
