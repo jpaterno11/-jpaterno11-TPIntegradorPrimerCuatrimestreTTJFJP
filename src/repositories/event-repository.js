@@ -113,13 +113,13 @@ export class EventRepository {
             const query = `
                 SELECT 
                     e.*,
-                    json_build_object(
+                    CASE WHEN u.id IS NULL THEN NULL ELSE json_build_object(
                         'id', u.id,
                         'first_name', u.first_name,
                         'last_name', u.last_name,
                         'username', u.username
-                    ) as creator_user,
-                    json_build_object(
+                    ) END as creator_user,
+                    CASE WHEN el.id IS NULL THEN NULL ELSE json_build_object(
                         'id', el.id,
                         'name', el.name,
                         'full_address', el.full_address,
@@ -140,19 +140,19 @@ export class EventRepository {
                                 'longitude', p.longitude
                             )
                         ),
-                        'creator_user', json_build_object(
+                        'creator_user', CASE WHEN elu.id IS NULL THEN NULL ELSE json_build_object(
                             'id', elu.id,
                             'first_name', elu.first_name,
                             'last_name', elu.last_name,
                             'username', elu.username
-                        )
-                    ) as event_location
+                        ) END
+                    ) END as event_location
                 FROM events e
-                JOIN users u ON e.id_creator_user = u.id
-                JOIN event_locations el ON e.id_event_location = el.id
-                JOIN users elu ON el.id_creator_user = elu.id
-                JOIN locations l ON el.id_location = l.id
-                JOIN provinces p ON l.id_province = p.id
+                LEFT JOIN users u ON e.id_creator_user = u.id
+                LEFT JOIN event_locations el ON e.id_event_location = el.id
+                LEFT JOIN users elu ON el.id_creator_user = elu.id
+                LEFT JOIN locations l ON el.id_location = l.id
+                LEFT JOIN provinces p ON l.id_province = p.id
                 WHERE e.id = $1
             `;
             
