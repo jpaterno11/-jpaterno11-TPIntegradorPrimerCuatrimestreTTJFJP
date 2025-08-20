@@ -7,12 +7,12 @@ export class EventController {
 
     async getAllEvents(req, res) {
         try {
-            const { limit = 15, offset = 0, name, startdate, tag } = req.query;
+            const { name, startdate, tag } = req.query;
             const filters = { name, startdate, tag };
             
             console.log('Getting events with filters:', filters);
-            const events = await this.eventService.getAllEvents(parseInt(limit), parseInt(offset), filters);
-            res.status(200).json(events);
+            const events = await this.eventService.getAllEvents(filters);
+            res.status(200).json({ collection: events });
         } catch (error) {
             console.error('Error in getAllEvents:', error);
             res.status(500).json({

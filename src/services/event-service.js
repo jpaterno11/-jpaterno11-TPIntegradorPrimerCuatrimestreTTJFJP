@@ -6,8 +6,8 @@ export class EventService {
         this.eventRepository = new EventRepository();
     }
 
-    async getAllEvents(limit, offset, filters) {
-        return await this.eventRepository.findAll(limit, offset, filters);
+    async getAllEvents(filters) {
+        return await this.eventRepository.findAll(filters);
     }
 
     async getEventById(id) {
@@ -24,6 +24,9 @@ export class EventService {
             throw new Error(errors.join(', '));
         }
         const locationCapacity = await this.eventRepository.getEventLocationCapacity(eventData.id_event_location);
+        if (locationCapacity == null) {
+            throw new Error("La ubicación especificada no existe");
+        }
         if (eventData.max_assistance > locationCapacity) {
             throw new Error("La capacidad máxima del evento no puede superar la capacidad de la ubicación");
         }
@@ -42,6 +45,9 @@ export class EventService {
         }
 
         const locationCapacity = await this.eventRepository.getEventLocationCapacity(eventData.id_event_location);
+        if (locationCapacity == null) {
+            throw new Error("La ubicación especificada no existe");
+        }
         if (eventData.max_assistance > locationCapacity) {
             throw new Error("La capacidad máxima del evento no puede superar la capacidad de la ubicación");
         }

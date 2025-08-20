@@ -3,7 +3,7 @@ import pkg from 'pg';
 const { Client } = pkg;
 
 export class EventRepository {
-    async findAll(limit = 15, offset = 0, filters = {}) {
+    async findAll(filters = {}) {
         const client = new Client(config);
         try {
             await client.connect();
@@ -34,12 +34,6 @@ export class EventRepository {
                 paramIndex++;
             }
 
-            const countQuery = `
-                SELECT COUNT(*) FROM events e ${whereClause}
-            `;
-            const countResult = await client.query(countQuery, params);
-            const total = parseInt(countResult.rows[0].count);
-
             const query = `
                 SELECT 
                     e.id,
@@ -50,13 +44,13 @@ export class EventRepository {
                     e.price,
                     e.enabled_for_enrollment,
                     e.max_assistance,
-                    json_build_object(
+                    CASE WHEN u.id IS NULL THEN NULL ELSE json_build_object(
                         'id', u.id,
                         'first_name', u.first_name,
                         'last_name', u.last_name,
                         'username', u.username
-                    ) as creator_user,
-                    json_build_object(
+                    ) END as creator_user,
+                    CASE WHEN el.id IS NULL THEN NULL ELSE json_build_object(
                         'id', el.id,
                         'name', el.name,
                         'full_address', el.full_address,
@@ -76,18 +70,16 @@ export class EventRepository {
                                 'longitude', p.longitude
                             )
                         )
-                    ) as event_location
+                    ) END as event_location
                 FROM events e
-                JOIN users u ON e.id_creator_user = u.id
-                JOIN event_locations el ON e.id_event_location = el.id
-                JOIN locations l ON el.id_location = l.id
-                JOIN provinces p ON l.id_province = p.id
+                LEFT JOIN users u ON e.id_creator_user = u.id
+                LEFT JOIN event_locations el ON e.id_event_location = el.id
+                LEFT JOIN locations l ON el.id_location = l.id
+                LEFT JOIN provinces p ON l.id_province = p.id
                 ${whereClause}
                 ORDER BY e.id
-                LIMIT $${paramIndex} OFFSET $${paramIndex + 1}
             `;
             
-            params.push(limit, offset);
             const result = await client.query(query, params);
 
             // Get tags for each event
@@ -107,14 +99,7 @@ export class EventRepository {
                 })
             );
 
-            return {
-                collection: eventsWithTags,
-                pagination: {
-                    limit: parseInt(limit),
-                    offset: parseInt(offset),
-                    total: total
-                }
-            };
+            return eventsWithTags;
         } finally {
             await client.end();
         }
