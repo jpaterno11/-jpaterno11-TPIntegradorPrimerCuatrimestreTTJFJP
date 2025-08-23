@@ -17,22 +17,25 @@ export class EventLocationRepository {
             const query = `
                 SELECT 
                     el.*,
-                    json_build_object(
-                        'id', l.id,
-                        'name', l.name,
-                        'latitude', l.latitude,
-                        'longitude', l.longitude,
-                        'province', json_build_object(
-                            'id', p.id,
-                            'name', p.name,
-                            'full_name', p.full_name,
-                            'latitude', p.latitude,
-                            'longitude', p.longitude
+                    CASE 
+                        WHEN l.id IS NOT NULL THEN json_build_object(
+                            'id', l.id,
+                            'name', l.name,
+                            'latitude', l.latitude,
+                            'longitude', l.longitude,
+                            'province', json_build_object(
+                                'id', p.id,
+                                'name', p.name,
+                                'full_name', p.full_name,
+                                'latitude', p.latitude,
+                                'longitude', p.longitude
+                            )
                         )
-                    ) as location
+                        ELSE NULL
+                    END as location
                 FROM event_locations el
-                JOIN locations l ON el.id_location = l.id
-                JOIN provinces p ON l.id_province = p.id
+                LEFT JOIN locations l ON el.id_location = l.id
+                LEFT JOIN provinces p ON l.id_province = p.id
                 ORDER BY el.id
                 LIMIT $1 OFFSET $2
             `;
@@ -59,22 +62,25 @@ export class EventLocationRepository {
             const query = `
                 SELECT 
                     el.*,
-                    json_build_object(
-                        'id', l.id,
-                        'name', l.name,
-                        'latitude', l.latitude,
-                        'longitude', l.longitude,
-                        'province', json_build_object(
-                            'id', p.id,
-                            'name', p.name,
-                            'full_name', p.full_name,
-                            'latitude', p.latitude,
-                            'longitude', p.longitude
+                    CASE 
+                        WHEN l.id IS NOT NULL THEN json_build_object(
+                            'id', l.id,
+                            'name', l.name,
+                            'latitude', l.latitude,
+                            'longitude', l.longitude,
+                            'province', json_build_object(
+                                'id', p.id,
+                                'name', p.name,
+                                'full_name', p.full_name,
+                                'latitude', p.latitude,
+                                'longitude', p.longitude
+                            )
                         )
-                    ) as location
+                        ELSE NULL
+                    END as location
                 FROM event_locations el
-                JOIN locations l ON el.id_location = l.id
-                JOIN provinces p ON l.id_province = p.id
+                LEFT JOIN locations l ON el.id_location = l.id
+                LEFT JOIN provinces p ON l.id_province = p.id
                 WHERE el.id = $1
             `;
             
@@ -93,22 +99,25 @@ export class EventLocationRepository {
             const query = `
                 SELECT 
                     el.*,
-                    json_build_object(
-                        'id', l.id,
-                        'name', l.name,
-                        'latitude', l.latitude,
-                        'longitude', l.longitude,
-                        'province', json_build_object(
-                            'id', p.id,
-                            'name', p.name,
-                            'full_name', p.full_name,
-                            'latitude', p.latitude,
-                            'longitude', p.longitude
+                    CASE 
+                        WHEN l.id IS NOT NULL THEN json_build_object(
+                            'id', l.id,
+                            'name', l.name,
+                            'latitude', l.latitude,
+                            'longitude', l.longitude,
+                            'province', json_build_object(
+                                'id', p.id,
+                                'name', p.name,
+                                'full_name', p.full_name,
+                                'latitude', p.latitude,
+                                'longitude', p.longitude
+                            )
                         )
-                    ) as location
+                        ELSE NULL
+                    END as location
                 FROM event_locations el
-                JOIN locations l ON el.id_location = l.id
-                JOIN provinces p ON l.id_province = p.id
+                LEFT JOIN locations l ON el.id_location = l.id
+                LEFT JOIN provinces p ON l.id_province = p.id
                 WHERE el.id = $1 AND el.id_creator_user = $2
             `;
             
@@ -124,21 +133,12 @@ export class EventLocationRepository {
         try {
             await client.connect();
             
-            // Check if location exists
-            const locationCheck = await client.query(
-                'SELECT id FROM locations WHERE id = $1',
-                [locationData.id_location]
-            );
-            
-            if (locationCheck.rows.length === 0) {
-                throw new Error('La ubicación especificada no existe');
-            }
-
+            // id_location es ahora opcional, no se valida su existencia
             const result = await client.query(
                 `INSERT INTO event_locations (name, full_address, id_location, 
                 max_capacity, latitude, longitude, id_creator_user) 
                 VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-                [locationData.name, locationData.full_address, locationData.id_location, 
+                [locationData.name, locationData.full_address, locationData.id_location || null, 
                 locationData.max_capacity, locationData.latitude, locationData.longitude, 
                 locationData.id_creator_user]
             );
@@ -172,7 +172,7 @@ export class EventLocationRepository {
                 `UPDATE event_locations SET name = $1, full_address = $2, id_location = $3, 
                 max_capacity = $4, latitude = $5, longitude = $6 
                 WHERE id = $7 RETURNING *`,
-                [locationData.name, locationData.full_address, locationData.id_location, 
+                [locationData.name, locationData.full_address, locationData.id_location || null, 
                 locationData.max_capacity, locationData.latitude, locationData.longitude, id]
             );
 

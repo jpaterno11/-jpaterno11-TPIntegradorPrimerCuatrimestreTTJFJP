@@ -35,11 +35,23 @@ export class EventLocationService {
         if (errors.length > 0) {
             throw new Error(errors.join(', '));
         }
-        const locationWithCreator = {
-            ...locationData,
+        
+        // Asegurar que solo se envíen los campos necesarios
+        const requiredData = {
+            name: locationData.name,
+            full_address: locationData.full_address,
+            max_capacity: locationData.max_capacity,
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
             id_creator_user: userId
         };
-        return await this.eventLocationRepository.create(locationWithCreator);
+        
+        // id_location es opcional, solo se incluye si está presente
+        if (locationData.id_location !== undefined && locationData.id_location !== null) {
+            requiredData.id_location = locationData.id_location;
+        }
+        
+        return await this.eventLocationRepository.create(requiredData);
     }
 
     async updateLocation(id, locationData, userId) {
@@ -48,7 +60,21 @@ export class EventLocationService {
             throw new Error(errors.join(', '));
         }
 
-        const updatedLocation = await this.eventLocationRepository.update(id, locationData, userId);
+        // Asegurar que solo se envíen los campos necesarios
+        const requiredData = {
+            name: locationData.name,
+            full_address: locationData.full_address,
+            max_capacity: locationData.max_capacity,
+            latitude: locationData.latitude,
+            longitude: locationData.longitude
+        };
+        
+        // id_location es opcional, solo se incluye si está presente
+        if (locationData.id_location !== undefined && locationData.id_location !== null) {
+            requiredData.id_location = locationData.id_location;
+        }
+
+        const updatedLocation = await this.eventLocationRepository.update(id, requiredData, userId);
         if (!updatedLocation) {
             throw new Error("Ubicación no encontrada o no autorizada para editar");
         }

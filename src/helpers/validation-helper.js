@@ -48,5 +48,20 @@ export const validateEventLocationData = (locationData) => {
         errors.push("La capacidad máxima debe ser mayor a 0");
     }
     
+    // Validar que las coordenadas estén presentes y sean números válidos
+    if (locationData.latitude === undefined || locationData.latitude === null) {
+        errors.push("La latitud es requerida");
+    } else if (isNaN(locationData.latitude) || locationData.latitude < -90 || locationData.latitude > 90) {
+        errors.push("La latitud debe ser un número válido entre -90 y 90");
+    }
+    
+    if (locationData.longitude === undefined || locationData.longitude === null) {
+        errors.push("La longitud es requerida");
+    } else if (isNaN(locationData.longitude) || locationData.longitude < -180 || locationData.longitude > 180) {
+        errors.push("La longitud debe ser un número válido entre -180 y 180");
+    }
+    
+    // id_location es opcional, no se valida
+    
     return errors;
 }; 
